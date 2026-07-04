@@ -1,0 +1,5 @@
+export const VEHICLE_STATUS = {
+    UNASSIGNED: "UNASSIGNED",
+    ACTIVE: "ACTIVE",
+    REVOKED: "REVOKED"
+};

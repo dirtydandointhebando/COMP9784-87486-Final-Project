@@ -6,6 +6,6 @@ const app = express();
 
 app.use(express.json());
 
-app.use("/", licensePlateRoutes);
+app.use("/license-plates", licensePlateRoutes);
 
 export default app;
