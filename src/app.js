@@ -1,12 +1,11 @@
 import express from "express";
 
+import licensePlateRoutes from "./routes/licensePlateRoutes.js";
+
 const app = express();
 
-app.get("/", (req, res) => {
-    res.json({
-        message: "License Plate API is running."
-    });
-});
+app.use(express.json());
+
+app.use("/", licensePlateRoutes);
 
 export default app;
-
