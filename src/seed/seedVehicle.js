@@ -7,10 +7,6 @@ import { VEHICLE_STATUS } from "../constants/vehicleStatus.js";
 
 dotenv.config();
 
-await connectDB();
-
-await Vehicle.deleteMany({});
-
 const vehicles = [
     {
         vin: "1HGCM82633A123456",
@@ -39,8 +35,21 @@ const vehicles = [
     }
 ];
 
-await Vehicle.insertMany(vehicles);
+try {
+    await connectDB();
 
-console.log("✅ Vehicles seeded.");
+    await Vehicle.deleteMany({});
 
-await mongoose.connection.close();
+    await Vehicle.insertMany(vehicles);
+
+    console.log("✅ Vehicles seeded successfully.");
+
+} catch (error) {
+
+    console.error("❌ Error seeding database:", error);
+
+} finally {
+
+    await mongoose.connection.close();
+
+}
