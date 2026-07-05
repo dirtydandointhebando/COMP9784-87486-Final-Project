@@ -1,5 +1,12 @@
 import express from "express";
 
+import apiKeyMiddleware from "../middleware/apiKey.js";
+
+import {
+    validateVin,
+    validateLicensePlate
+} from "../middleware/validation.js";
+
 import {
     getApiStatus,
     assignLicensePlate,
@@ -12,12 +19,32 @@ const router = express.Router();
 
 router.get("/", getApiStatus);
 
-router.put("/assign/:vin", assignLicensePlate);
+router.put(
+    "/assign/:vin",
+    apiKeyMiddleware,
+    validateVin,
+    assignLicensePlate
+);
 
-router.post("/revoke/:vin", revokeLicensePlate);
+router.post(
+    "/revoke/:vin",
+    apiKeyMiddleware,
+    validateVin,
+    revokeLicensePlate
+);
 
-router.get("/verify-vin/:vin", verifyVinController);
+router.get(
+    "/verify-vin/:vin",
+    apiKeyMiddleware,
+    validateVin,
+    verifyVinController
+);
 
-router.get("/verify-license-plate/:licensePlate", verifyLicensePlateStatus);
+router.get(
+    "/verify-license-plate/:licensePlate",
+    apiKeyMiddleware,
+    validateLicensePlate,
+    verifyLicensePlateStatus
+);
 
 export default router;
