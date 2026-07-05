@@ -98,3 +98,31 @@ export const revokePlate = async (vin) => {
         vehicle
     };
 };
+
+export const verifyVin = async (vin) => {
+
+    const vehicle = await Vehicle.findOne({ vin });
+
+    if (!vehicle) {
+        return {
+            success: false,
+            status: 404,
+            message: `VIN ${vin} was not found.`
+        };
+    }
+
+    if (vehicle.status === VEHICLE_STATUS.UNASSIGNED) {
+        return {
+            success: true,
+            status: 200,
+            message: `VIN ${vin} is not assigned a license plate.`
+        };
+    }
+
+    return {
+        success: true,
+        status: 200,
+        message: `VIN ${vin} is assigned to License Plate ${vehicle.licensePlate}.`,
+        vehicle
+    };
+};
