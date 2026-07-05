@@ -1,5 +1,3 @@
-import { getStatus, assignPlate } from "../services/licensePlateService.js";
-
 import {
     getStatus,
     assignPlate,
