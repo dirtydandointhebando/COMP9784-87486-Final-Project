@@ -58,3 +58,43 @@ export const assignPlate = async (vin) => {
         vehicle
     };
 };
+
+export const revokePlate = async (vin) => {
+
+    const vehicle = await Vehicle.findOne({ vin });
+
+    if (!vehicle) {
+        return {
+            success: false,
+            status: 404,
+            message: `VIN ${vin} was not found.`
+        };
+    }
+
+    if (vehicle.status === VEHICLE_STATUS.UNASSIGNED) {
+        return {
+            success: false,
+            status: 409,
+            message: `VIN ${vin} does not have a license plate assigned.`
+        };
+    }
+
+    if (vehicle.status === VEHICLE_STATUS.REVOKED) {
+        return {
+            success: false,
+            status: 409,
+            message: `VIN ${vin} is already revoked.`
+        };
+    }
+
+    vehicle.status = VEHICLE_STATUS.REVOKED;
+
+    await vehicle.save();
+
+    return {
+        success: true,
+        status: 200,
+        message: `License Plate ${vehicle.licensePlate} revoked for VIN ${vin}.`,
+        vehicle
+    };
+};
