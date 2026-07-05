@@ -42,6 +42,10 @@ try {
 
     await Vehicle.insertMany(vehicles);
 
+    const count = await Vehicle.countDocuments();
+
+    console.log(`Vehicle count: ${count}`);
+
     console.log("✅ Vehicles seeded successfully.");
 
 } catch (error) {
