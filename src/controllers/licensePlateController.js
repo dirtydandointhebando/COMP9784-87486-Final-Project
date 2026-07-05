@@ -2,7 +2,8 @@ import {
     getStatus,
     assignPlate,
     revokePlate,
-    verifyVin
+    verifyVin,
+    verifyLicensePlate
 } from "../services/licensePlateService.js";
 
 export const getApiStatus = (req, res) => {
@@ -36,6 +37,16 @@ export const verifyVinController = async (req, res) => {
     const { vin } = req.params;
 
     const result = await verifyVin(vin);
+
+    res.status(result.status).json(result);
+
+};
+
+export const verifyLicensePlateStatus = async (req, res) => {
+
+    const { licensePlate } = req.params;
+
+    const result = await verifyLicensePlate(licensePlate);
 
     res.status(result.status).json(result);
 

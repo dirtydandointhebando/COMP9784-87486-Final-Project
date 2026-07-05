@@ -4,19 +4,20 @@ import {
     getApiStatus,
     assignLicensePlate,
     revokeLicensePlate,
-    verifyVinController
+    verifyVinController,
+    verifyLicensePlateStatus
 } from "../controllers/licensePlateController.js";
 
 const router = express.Router();
 
-// Health check
 router.get("/", getApiStatus);
 
-// Assign a license plate
 router.put("/assign/:vin", assignLicensePlate);
 
 router.post("/revoke/:vin", revokeLicensePlate);
 
 router.get("/verify-vin/:vin", verifyVinController);
+
+router.get("/verify-license-plate/:licensePlate", verifyLicensePlateStatus);
 
 export default router;

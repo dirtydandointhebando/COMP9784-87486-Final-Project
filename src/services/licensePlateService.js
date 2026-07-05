@@ -126,3 +126,23 @@ export const verifyVin = async (vin) => {
         vehicle
     };
 };
+
+export const verifyLicensePlate = async (licensePlate) => {
+
+    const vehicle = await Vehicle.findOne({ licensePlate });
+
+    if (!vehicle) {
+        return {
+            success: false,
+            status: 404,
+            message: `License Plate ${licensePlate} was not found.`
+        };
+    }
+
+    return {
+        success: true,
+        status: 200,
+        message: `License Plate ${licensePlate} belongs to VIN ${vehicle.vin}.`,
+        vehicle
+    };
+};
