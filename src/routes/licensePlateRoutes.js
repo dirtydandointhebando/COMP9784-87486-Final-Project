@@ -2,11 +2,6 @@ import express from "express";
 
 import {
     getApiStatus,
-    assignLicensePlate
-} from "../controllers/licensePlateController.js";
-
-import {
-    getApiStatus,
     assignLicensePlate,
     revokeLicensePlate
 } from "../controllers/licensePlateController.js";
